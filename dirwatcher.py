@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 
@@ -10,7 +10,7 @@ import time
 import signal
 import pyfiglet
 
-__author__ = "Subash Karki, mob_coding with stew"
+__author__ = "Subash Karki, mob_coding with stew, Piero(Instructor)"
 # __rearch_site__ = [{
 #     1: "https://docs.python.org/3.1/library/logging.html",
 #     2: "www.devdungeon.com/content/create-ascii-art-text-banners-python"
@@ -47,7 +47,7 @@ def watching_directory(args):
             existed_files.remove(file)
             del magic_spell_position[file]
     for file in existed_files:
-        find_magic(file, args.magic, directory)
+        find_magic(file, directory, args.magic)
 
 
 def signal_handler(sig_num, frame):
@@ -73,7 +73,8 @@ def signal_handler(sig_num, frame):
 
 def find_magic(filename, directory, magic_word):
     """ Search thru the file and look for magic number"""
-    with open(directory + '/' + filename) as f:
+    watchfile = os.path.join(directory, filename)
+    with open(watchfile) as f:
         for i, line in enumerate(f.readlines(), 1):
             if magic_word in line and i > magic_spell_position[filename]:
                 logger.info('Magic word found: {} on line: {}'
@@ -121,8 +122,9 @@ def main():
     while not exit_flag:
         try:
             watching_directory(args)
-        except OSError:
-            logger.error('{} directory does not exist'.format(args.path))
+        except OSError as e:
+            logger.error(str(e))
+            # logger.error('{} directory does not exist'.format(args.path))
             time.sleep(args.interval)
         except Exception as e:
             logger.error('Unhandled exception: {}'.format(e))
