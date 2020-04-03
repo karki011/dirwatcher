@@ -8,8 +8,7 @@ import logging
 import datetime
 import time
 import signal
-# import pyfiglet
-
+import pyfiglet
 
 __author__ = "Subash Karki, mob_coding with stew"
 # __rearch_site__ = [{
@@ -21,17 +20,15 @@ logger = logging.getLogger(__file__)
 exit_flag = False
 existed_files = []
 magic_spell_position = {}
-# ascii_banner_start = pyfiglet.figlet_format("Start!!")
-# ascii_banner_watching = pyfiglet.figlet_format("Watching!!")
-# ascii_banner_stopped = pyfiglet.figlet_format("Stoped!!")
+ascii_banner_start = pyfiglet.figlet_format("Start!!")
+ascii_banner_watching = pyfiglet.figlet_format("Watching!!")
+ascii_banner_stopped = pyfiglet.figlet_format("Stoped!!")
 
 
 def watching_directory(args):
     """look at the dir and put in dict if its not already there
         log the message if added new
     """
-    global existed_files
-    global magic_spell_position
     logger.info(
         'Watching directory: {}, Ext: {}, Interval: {}, Magic_word:{}'
         .format(
@@ -76,8 +73,6 @@ def signal_handler(sig_num, frame):
 
 def find_magic(filename, directory, magic_word):
     """ Search thru the file and look for magic number"""
-    global magic_spell_position
-
     with open(directory + '/' + filename) as f:
         for i, line in enumerate(f.readlines(), 1):
             if magic_word in line and i > magic_spell_position[filename]:
@@ -105,7 +100,7 @@ def main():
         '[%(threadName)-12s] %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S')
     logger.setLevel(logging.DEBUG)
-    # print(ascii_banner_start)
+    print(ascii_banner_start)
     app_start_time = datetime.datetime.now()
     logger.info(
         '\n'
@@ -115,7 +110,7 @@ def main():
         '-------------------------------------------------------------------\n'
         .format(__file__, app_start_time.isoformat())
     )
-    # print(ascii_banner_watching)
+    print(ascii_banner_watching)
 
     parser = create_praser()
     args = parser.parse_args()
@@ -142,7 +137,7 @@ def main():
         '-------------------------------------------------------------------\n'
         .format(__file__, str(uptime))
     )
-    # print(ascii_banner_stopped)
+    print(ascii_banner_stopped)
 
 
 if __name__ == "__main__":
