@@ -8,21 +8,24 @@ import logging
 import datetime
 import time
 import signal
-import pyfiglet
 
-__author__ = "Subash Karki, mob_coding with stew, Piero(Instructor)"
+from pyfiglet import Figlet
+
 # __rearch_site__ = [{
 #     1: "https://docs.python.org/3.1/library/logging.html",
 #     2: "www.devdungeon.com/content/create-ascii-art-text-banners-python"
 # }]
 
+f = Figlet(font='slant')
 logger = logging.getLogger(__file__)
 exit_flag = False
 existed_files = []
 magic_spell_position = {}
-ascii_banner_start = pyfiglet.figlet_format("Start!!")
-ascii_banner_watching = pyfiglet.figlet_format("Watching!!")
-ascii_banner_stopped = pyfiglet.figlet_format("Stoped!!")
+ascii_banner_start = f.renderText('Start!!')
+ascii_banner_watching = f.renderText('Watching!!')
+ascii_banner_stopped = f.renderText('Stopped!!')
+
+__author__ = "Subash Karki, mob_coding with stew, Piero(Instructor)"
 
 
 def watching_directory(args):
